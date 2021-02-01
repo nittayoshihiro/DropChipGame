@@ -18,6 +18,7 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>現在順番が周ってきているプレイヤーが何番目のプレイヤーなのか示す index</summary>
     int m_activePlayerIndex = 0;
     PunTurnManager m_turnManager = null;
+    [SerializeField] float waitTime;
 
     /// <summary>
     /// 順番を次のプレイヤーに移動する
@@ -95,10 +96,7 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
             // 自分の番ならチップを出す
             if (this.ActivePlayer.Equals(PhotonNetwork.LocalPlayer))
             {
-                Debug.Log("This is my turn.");
-                m_chipSpawnPoint.position = new Vector3(m_chipSpawnPoint.position.x, TopChip().transform.position.y + 1);
-                SpawnChip();
-                
+                Invoke("InstanceChip", waitTime);
             }
             else
             {
@@ -124,7 +122,20 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
         ChipController[] chips = GameObject.FindObjectsOfType<ChipController>();
         ChipController topChip = chips.OrderByDescending(chip => chip.transform.position.y).First();
-        Debug.Log(topChip);
+        Debug.Log(topChip.transform.position);
         return topChip;
+    }
+
+    void InstanceChip()
+    {
+        Debug.Log("This is my turn.");
+        Vector3 pos = m_chipSpawnPoint.position;
+        var topY = TopChip().gameObject.transform.position.y + 2f;
+        if (pos.y < topY)
+        {
+            pos.y = topY;
+        }
+        m_chipSpawnPoint.position = pos;
+        SpawnChip();
     }
 }
