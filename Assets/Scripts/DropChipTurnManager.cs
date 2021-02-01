@@ -131,7 +131,7 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
         Debug.Log("This is my turn.");
         Vector3 pos = m_chipSpawnPoint.position;
         var topY = TopChip().gameObject.transform.position.y + 2f;
-        if (pos.y < topY)
+        if (pos.y - 1f < topY)
         {
             pos.y = topY;
         }
