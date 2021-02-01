@@ -97,7 +97,7 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
             {
                 Debug.Log("This is my turn.");
                 SpawnChip();
-                Camera.main.GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = TopChip().transform;
+                m_chipSpawnPoint.position = new Vector3(m_chipSpawnPoint.position.x, TopChip().transform.position.y + 1);
             }
             else
             {
