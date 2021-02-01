@@ -96,8 +96,9 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
             if (this.ActivePlayer.Equals(PhotonNetwork.LocalPlayer))
             {
                 Debug.Log("This is my turn.");
-                SpawnChip();
                 m_chipSpawnPoint.position = new Vector3(m_chipSpawnPoint.position.x, TopChip().transform.position.y + 1);
+                SpawnChip();
+                
             }
             else
             {
