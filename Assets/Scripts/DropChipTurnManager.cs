@@ -3,6 +3,7 @@
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using System.Linq;
 
 /// <summary>
 /// ターン管理用コンポーネント
@@ -96,6 +97,7 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
             {
                 Debug.Log("This is my turn.");
                 SpawnChip();
+                Camera.main.GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = TopChip().transform;
             }
             else
             {
@@ -116,4 +118,12 @@ public class DropChipTurnManager : MonoBehaviour, IPunTurnManagerCallbacks
     {
     }
     #endregion
+
+    ChipController TopChip()
+    {
+        ChipController[] chips = GameObject.FindObjectsOfType<ChipController>();
+        ChipController topChip = chips.OrderByDescending(chip => chip.transform.position.y).First();
+        Debug.Log(topChip);
+        return topChip;
+    }
 }
