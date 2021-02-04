@@ -17,4 +17,12 @@ public class CenterOfMass : MonoBehaviour
     {
 
     }
+
+    /// <summary>重心を変更します</summary>
+    /// <param name="vector2">センターから動かしたい値</param>
+    public void CenterGravityPosChange(Vector2 vector2)
+    {
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        rb2d.centerOfMass = vector2;
+    }
 }
